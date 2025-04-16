@@ -26,8 +26,9 @@ const addEmployee = async (req, res) => {
 }
 const updateSalary = async(req, res) => {
     try {
-        const { employeeId, salary } = req.body;
-        const employee = await Employee.findByPk(employeeId);
+        const { id } = req.params;
+        const { salary } = req.body;
+        const employee = await Employee.findByPk(id);
         if (!employee) {
             return res.status(404).json({ error: 'Employee not found' });
         }
