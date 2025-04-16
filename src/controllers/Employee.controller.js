@@ -1,11 +1,16 @@
-const { Employee } = require('../models/Employee.model');
+const { Employee } = require('../models');
 
 const getEmployees = async (_req, res) => {
     try {
         const employees = await Employee.findAll();
         res.status(200).json(employees);
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Error al obtener empleados:', error);
+        res.status(500).json({ 
+            error: 'Internal Server Error',
+            message: error.message,
+            details: 'Error al obtener la lista de empleados'
+        });
     }
 }
 

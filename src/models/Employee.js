@@ -1,3 +1,6 @@
+
+
+
 const EmployeeOf = (sequelize, DataTypes) => {
     const Employee = sequelize.define('Employee', {
         employeeId: {
@@ -7,12 +10,12 @@ const EmployeeOf = (sequelize, DataTypes) => {
             field: 'employee_id'
         },
         employeeName: {
-            type: DataTypes.STRING(50),
+            type: DataTypes.STRING,
             allowNull: false,
             field: 'employee_name'
         },
         salary: {
-            type: DataTypes.DECIMAL(10,2),
+            type: DataTypes.DECIMAL,
             allowNull: false,
             field: 'salary'
         },
