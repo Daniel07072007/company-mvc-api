@@ -32,7 +32,7 @@ const updateSalary = async(req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
-const getEmployeeSalaryMaxByDepartment = async (req, res) => {
+const getEmployeeSalaryMaxByDepartmentId = async (req, res) => {
     try {
         const { departmentId } = req.params;
         const employee = await Employee.findOne({
@@ -53,6 +53,6 @@ module.exports = {
     getEmployees,
     addEmployee, 
     updateSalary,
-    getEmployeeSalaryMaxByDepartment
+    getEmployeeSalaryMaxByDepartmentId
 }
 
