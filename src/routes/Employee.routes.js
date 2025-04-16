@@ -7,3 +7,5 @@ router.get('/all', employeeController.getEmployees);
 router.post('/add', employeeController.addEmployee);
 router.put('/update-salary', employeeController.updateSalary);
 router.get('/max-salary/:departmentId', employeeController.getEmployeeSalaryMaxByDepartmentId);
+
+module.exports = router;
