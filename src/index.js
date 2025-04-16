@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const healthCheckRoutes = require('./routes/healthCheck');
 
 const app = express();
 const PORT = 3000;
@@ -8,6 +9,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+
 
 
 app.listen(PORT, () => {
