@@ -7,8 +7,8 @@ const app = express();
 const PORT = 3000;
 
 app.use(cors());
-app.use(morgan('dev'));
-app.use(express.json());
+app.use(morgan('dev')); //peticiomes y middle wares
+app.use(express.json()); //devuelve JSONs
 
 app.use('/api', endpoints);
 

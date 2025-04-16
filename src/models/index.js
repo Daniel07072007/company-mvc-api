@@ -1,3 +1,4 @@
+//sequelize (ORM) mapea objetos en JavaScript, evita inyecciones SQL
 const path = require('path');
 const dotenv = require('dotenv');
 const { Sequelize, DataTypes } = require('sequelize');
