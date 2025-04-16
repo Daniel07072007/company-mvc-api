@@ -14,8 +14,22 @@ const dbPassword = process.env.DB_PASSWORD
 const dbHost = process.env.DB_HOST
 const dbPort = process.env.DB_PORT
 
+// Verificar variables de entorno
+const requiredEnvVars = ['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT'];
+for (const envVar of requiredEnvVars) {
+    if (!process.env[envVar]) {
+        throw new Error(`Variable de entorno ${envVar} no está definida`);
+    }
+}
+
 const init = async () => {
     if (!sequelize) {
+        console.log('Intentando conectar a la base de datos con los siguientes parámetros:');
+        console.log(`Host: ${dbHost}`);
+        console.log(`Puerto: ${dbPort}`);
+        console.log(`Base de datos: ${dbName}`);
+        console.log(`Usuario: ${dbUser}`);
+        
         sequelize = new Sequelize({
             host: dbHost,
             username: dbUser,
@@ -23,13 +37,21 @@ const init = async () => {
             dialect: "mysql",
             port: dbPort,
             database: dbName,
+            logging: console.log, // Habilita el logging de queries SQL
+            dialectOptions: {
+                connectTimeout: 5000 // Timeout de 5 segundos
+            }
         })
         
         try {
             await sequelize.authenticate();
-            console.log('Conexión establecida correctamente.');
+            console.log('✅ Conexión a la base de datos establecida correctamente');
+            console.log(`Versión del servidor MySQL: ${(await sequelize.query('SELECT VERSION()'))[0][0]['VERSION()']}`);
         } catch (error) {
-            console.error('No se pudo conectar a la base de datos:', error);
+            console.error('❌ Error al conectar a la base de datos:');
+            console.error(`Mensaje de error: ${error.message}`);
+            console.error(`Código de error: ${error.parent?.code || 'N/A'}`);
+            console.error(`SQL Estado: ${error.parent?.sqlState || 'N/A'}`);
             throw error;
         }
     }
